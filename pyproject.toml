@@ -5,6 +5,7 @@ version = "1.0.0"
 description = "Hack the Box Team Support Services"
 
 dependencies = [
+  "dnslib",
   "psycopg2",
 ]
 
