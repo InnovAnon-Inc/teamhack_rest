@@ -10,17 +10,17 @@ def drop_table(conn):
 
 def create_type_record(conn):
     with conn.cursor() as curs:
-        curs.execute("""CREATE TYPE record_type AS ENUM ('A', 'AAAA', 'MX')""")
+        curs.execute("""CREATE TYPE record_type AS ENUM ('A', 'AAAA', 'MX', 'NS')""")
 def create_table(conn):
     create_type_record(conn)
     with conn.cursor() as curs:
       curs.execute("""
         CREATE TABLE IF NOT EXISTS hosts (
           id       SERIAL        PRIMARY KEY,
-          hostname VARCHAR(255)  UNIQUE,
+          hostname VARCHAR(255),
           record   VARCHAR(  4),
           ip       INET
-        )
+        ) UNIQUE(hostname, record)
       """)
 
 def insert(conn, hostname, record, ip):
@@ -40,6 +40,10 @@ def select_ip(conn, ip):
 def select_hostname(conn, hostname):
     with conn.cursor() as curs:
         curs.execute("""SELECT * FROM hosts WHERE hostname = %s""", (hostname,))
+        return curs.fetchall()
+def select_hostname_recordtype(conn, hostname, record):
+    with conn.cursor() as curs:
+        curs.execute("""SELECT * FROM hosts WHERE hostname = %s AND record = %s""", (hostname, record))
         return curs.fetchone()
 
 def drop_row_id(conn, row_id):

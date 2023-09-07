@@ -15,6 +15,8 @@ params = config()
 conn   = connect(**params)
 conn.autocommit = True # change the behavior of commit
 
+drop_table(conn)
+
 TEST_HOSTNAME = "bookworm.htb"
 TEST_RECORD   = "A"
 TEST_IP       = "10.10.11.215"
