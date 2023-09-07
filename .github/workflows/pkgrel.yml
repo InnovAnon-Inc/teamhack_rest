@@ -49,22 +49,22 @@ jobs:
 
     - name: Test Deps
       run: |
-        touch setup.cfg
         pip install '.[test]'
 
     - name: Integration Test
       run: |
+        export PATH=$HOME/.local/bin:$PATH
         pytest
         coverage run
 
     # TODO new image
     - name: Release Deps
       run: |
-        touch setup.cfg
         pip install '.[rel]'
 
     - name: Release
       run: |
+        export PATH=$HOME/.local/bin:$PATH
         python3 -m twine upload dist/*
 
     # TODO new image
