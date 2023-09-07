@@ -16,26 +16,26 @@ def handle_dns_query(conn, data):
     if   qtype == QTYPE.NS: qt = 'NS'
     elif qtype == QTYPE.A:  qt = 'A'
     else:
-      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-      reply.add_answer(a)
-      return reply.pack()
+      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      request.add_answer(a)
+      return request.pack()
 
     print(f'qname: {qname}, qt: {qt}, qtype: {qtype}')
     res = select_hostname_recordtype(conn, qname, qt)
     if not res:
-      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-      reply.add_answer(a)
-      return reply.pack()
+      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      request.add_answer(a)
+      return request.pack()
     res = res[0]
     if not res:
-      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-      reply.add_answer(a)
-      return reply.pack()
+      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      request.add_answer(a)
+      return request.pack()
     res = res[3]
     if not res:
-      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-      reply.add_answer(a)
-      return reply.pack()
+      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      request.add_answer(a)
+      return request.pack()
     print(f'qname: {qname}, qtype: {qt}, res: {res}')
 
     #if qname in dns_records and qtype in dns_records[qname]:
