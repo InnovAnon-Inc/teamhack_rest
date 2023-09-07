@@ -4,13 +4,6 @@ name = "teamhack"
 version = "1.0.0"
 description = "Hack the Box Team Support Services"
 
-[build-system]
-requires = [
-  "setuptools>=42",
-  "wheel",
-]
-build-backend = "setuptools.build_meta"
-
 dependencies = [
   "psycopg2",
 ]
@@ -22,6 +15,13 @@ test = [
 rel = [
     "twine"
 ]
+
+[build-system]
+requires = [
+  "setuptools>=42",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
