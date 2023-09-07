@@ -2,7 +2,7 @@ import socket
 from dnslib import *
 
 # Function to handle DNS queries and return a response
-def handle_dns_query(data):
+def handle_dns_query(conn, data):
     request = DNSRecord.parse(data)
 
     reply = DNSRecord(DNSHeader(id=request.header.id, qr=1, aa=1, ra=1), q=request.q)
@@ -10,7 +10,13 @@ def handle_dns_query(data):
     qname = str(request.q.qname)
     qtype = request.q.qtype
 
-    if qname in dns_records and qtype in dns_records[qname]:
+    res = select_hostname_record(conn, qname, qtype)
+    res = res[0]
+    res = res[3]
+    print(f'qname: {qname}, qtype: {qtype}, res: {res}')
+
+    #if qname in dns_records and qtype in dns_records[qname]:
+    if res:
         if qtype == QTYPE.NS:
             reply.add_answer(RR(rname=qname, rtype=qtype, rdata=NS(dns_records[qname][qtype])))
         else:
@@ -21,7 +27,7 @@ def handle_dns_query(data):
     return reply.pack()
 
 # Function to start the DNS server and listen for requests
-def start_dns_server():
+def start_dns_server(conn):
     host = ''
     port = 53
 
@@ -32,6 +38,6 @@ def start_dns_server():
 
     while True:
         data, address = server_socket.recvfrom(1024)
-        response = handle_dns_query(data)
+        response = handle_dns_query(conn, data)
         server_socket.sendto(response, address)
 

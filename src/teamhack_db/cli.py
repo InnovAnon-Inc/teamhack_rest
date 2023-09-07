@@ -1,14 +1,8 @@
 from psycopg2 import connect
 
-from .conf    import config
 from .sql     import create_table, insert, select_hostname_recordtype
 
-params = config()
-conn   = connect(**params)
-
-create_table(conn)
-
-def start_cli():
+def start_cli(conn):
   while True: # User interface to add and lookup DNS records
     choice = input('\n \n \n - "1" to add a DNS record, \n \n - "2" to add a name server record, \n \n - "3" to lookup a DNS record: \n \n \n')
 
