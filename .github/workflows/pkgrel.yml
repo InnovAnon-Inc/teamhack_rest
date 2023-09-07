@@ -54,8 +54,8 @@ jobs:
 
     - name: DB
       run: |
-        sudo createuser  user
-        sudo createdb -O user db
+        sudo createuser -h service user
+        sudo createdb           -O user db
         echo '[postgresql]' >  database.ini
         echo host=service >> database.ini
         echo database=db    >> database.ini
