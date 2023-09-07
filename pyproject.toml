@@ -10,10 +10,11 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "coverage"
+  "coverage",
+  "pytest",
 ]
 rel = [
-    "twine"
+  "twine"
 ]
 
 [build-system]
