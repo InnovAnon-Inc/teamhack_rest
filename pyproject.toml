@@ -1,6 +1,6 @@
 [project]
 name = "teamhack"
-version = 1.0.0
+version = "1.0.0"
 description = "Hack the Box Team Support Services"
 
 [build-system]
