@@ -25,7 +25,7 @@ def start_cli():
 
         ip          = select_hostname_recordtype(conn, name, record_type)
         #if name in dns_records and record_type in dns_records[name]:
-        print(f'{name} {record_type} {ip]}')
+        print(f'{name} {record_type} {ip}')
         #else:
         #    print(f'DNS record not found: {name} {record_type} \n')
 
