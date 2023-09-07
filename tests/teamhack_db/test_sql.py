@@ -1,4 +1,4 @@
-import dnslib
+from dnslib           import *
 from psycopg2         import connect
 
 from teamhack_db.conf import config
