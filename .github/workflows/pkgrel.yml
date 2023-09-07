@@ -54,7 +54,7 @@ jobs:
 
     - name: Integration Test
       run: |
-        #pytest
+        pytest
         coverage run
 
     # TODO new image

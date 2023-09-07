@@ -1,4 +1,4 @@
-from psycopg2 import connect
+from psycopg2         import connect
 
 from teamhack_db.conf import config
 from teamhack_db.sql  import create_table
