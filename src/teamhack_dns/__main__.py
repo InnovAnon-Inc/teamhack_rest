@@ -1,5 +1,6 @@
 from psycopg2           import connect
 from teamhack_db.conf   import config
+from teamhack_db.sql    import create_table
 from            .server import start_dns_server
 
 if __name__ == '__main__':
