@@ -1,6 +1,6 @@
 import socket
-from dnslib import *
-from teamhack_sql import select_hostname_record
+from dnslib          import *
+from teamhack_db.sql import select_hostname_record
 
 UPSTREAM_SERVER = '8.8.8.8'
 UPSTREAM_PORT   = 53
