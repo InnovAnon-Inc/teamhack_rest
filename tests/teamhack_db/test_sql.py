@@ -13,46 +13,55 @@ from teamhack_db.sql  import select_ip
 
 params = config()
 conn   = connect(**params)
-#conn.autocommit = True # change the behavior of commit
+conn.autocommit = True # change the behavior of commit
 
-drop_table(conn)
-conn.commit()
+TEST_HOSTNAME = "bookworm.htb"
+TEST_RECORD   = "A"
+TEST_IP       = "10.10.11.215"
 
-create_table(conn)
-conn.commit()
+def test(f):
+  def inner(*args, **kwargs):
+    create_table(conn)
+    try:
+      insert(conn, TEST_HOSTNAME, TEST_RECORD, TEST_IP)
+      return f(*args, **kwargs)
+    finally: drop_table(conn)
+  return inner
 
-#ret = insert_table_domains(conn, ".htb", "10.10.0.0/16")
-insert(conn, "bookworm.htb", "A", "10.10.11.215")
-conn.commit()
-print("A")
-print("select: %s" % (select(conn),))
-print("select_ip: %s" % (select_ip(conn, '10.10.11.215'),))
-print("select_hostname: %s" % (select_hostname(conn, 'bookworm.htb'),))
+@test
+def test_select():
+  v = select(conn)
+  assert v == (1, TEST_HOSTNAME, TEST_RECORD, TEST_IP)
 
-drop_row_id(conn, select_hostname(conn, 'bookworm.htb')[0])
-conn.commit()
-print("B")
-print("select: %s" % (select(conn),))
+@test
+def test_select_ip():
+  v = select_ip(conn, TEST_IP)
+  assert v == (TEST_HOSTNAME,)
 
-insert(conn, "bookworm.htb", "A", "10.10.11.215")
-conn.commit()
-row = select_hostname(conn, 'bookworm.htb')
-print("C")
-print("row: %s" % (row,))
-hn  = row[1]
-print("hn: %s" % (hn,))
-drop_row_hostname(conn, hn)
-conn.commit()
-print("select: %s" % (select(conn),))
+@test
+def test_select_hostname():
+  v = select_hostname(conn, TEST_HOSTNAME)
+  assert v == TEST_IP
 
-insert(conn, "bookworm.htb", "A", "10.10.11.215")
-conn.commit()
-for ip in select_ip(conn, "10.10.11.215"):
+@test
+def test_drop_row_id():
+  v = select_hostname(conn, TEST_HOSTNAME)[0])
+  drop_row_id(conn, v)
+  v = select(conn)
+  assert v is None
+
+@test
+def test_drop_row_hostname():  
+  row = select_hostname(conn, TEST_HOSTNAME)
+  hn  = row[1]
+  drop_row_hostname(conn, hn)
+  v = select(conn)
+  assert v is None
+
+@test
+def test_drop_row_ip():
+  for ip in select_ip(conn, TEST_IP):
     drop_row_ip(conn, ip[3])
-conn.commit()
-print("D")
-print("select: %s" % (select(conn),))
-
-conn.commit()
-exit(0)
+  v = select(conn)
+  assert v is None
 

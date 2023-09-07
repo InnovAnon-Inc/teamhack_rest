@@ -5,9 +5,10 @@ description = "Hack the Box Team Support Services"
 
 [build-system]
 requires = [
-    "setuptools>=42",
-    "wheel",
-    "psycopg2",
+  "setuptools>=42",
+  "wheel",
+  "psycopg2",
+  "pytest",
 ]
 build-backend = "setuptools.build_meta"
 
