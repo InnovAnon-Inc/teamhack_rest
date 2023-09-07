@@ -45,7 +45,7 @@ def test_select_hostname():
 
 @test
 def test_drop_row_id():
-  v = select_hostname(conn, TEST_HOSTNAME)[0])
+  v = select_hostname(conn, TEST_HOSTNAME)[0]
   drop_row_id(conn, v)
   v = select(conn)
   assert v is None
