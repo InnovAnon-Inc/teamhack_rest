@@ -52,15 +52,15 @@ jobs:
         #pip install '.[test]'
         pip install coverage pytest
 
-    #- name: DB
-    #  run: |
-    #    sudo createuser  user
-    #    sudo createdb -O user db
-    #    echo '[postgresql]' >  database.ini
-    #    echo host=localhost >> database.ini
-    #    echo database=db    >> database.ini
-    #    echo user=user      >> database.ini
-    #
+    - name: DB
+      run: |
+        sudo createuser  user
+        sudo createdb -O user db
+        echo '[postgresql]' >  database.ini
+        echo host=localhost >> database.ini
+        echo database=db    >> database.ini
+        echo user=user      >> database.ini
+    
     #- name: Integration Test
     #  run: |
     #    #export PATH=$HOME/.local/bin:$PATH
