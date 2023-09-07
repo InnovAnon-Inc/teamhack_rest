@@ -50,7 +50,7 @@ jobs:
     - name: Test Deps
       run: |
         touch setup.cfg
-        pip install -e '.[test]'
+        pip install '.[test]'
 
     - name: Integration Test
       run: |
@@ -61,7 +61,7 @@ jobs:
     - name: Release Deps
       run: |
         touch setup.cfg
-        pip install -e '.[rel]'
+        pip install '.[rel]'
 
     - name: Release
       run: |
