@@ -68,22 +68,22 @@ jobs:
     #    #coverage run
     #    python -m pytest
     #    python -m coverage run
-
-    # TODO new image
-    - name: Release Deps
-      run: |
-        #pip install '.[rel]'
-        pip install twine
-
-    - name: Release
-      run: |
-        #export PATH=$HOME/.local/bin:$PATH
-        python3 -m twine upload dist/*
+    #
+    ## TODO new image
+    #- name: Release Deps
+    #  run: |
+    #    #pip install '.[rel]'
+    #    pip install twine
+    #
+    #- name: Release
+    #  run: |
+    #    #export PATH=$HOME/.local/bin:$PATH
+    #    python3 -m twine upload dist/*
 
     # TODO new image
     - name: Build Docker Image
       run: |
-        docker build -t dnspy .
+        docker build -t teamhack .
     #- name: Deploy Docker Image
     #  run: |
     #    docker deploy   dnspy
