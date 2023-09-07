@@ -21,8 +21,20 @@ def handle_dns_query(conn, data):
       return reply.pack()
 
     res = select_hostname_recordtype(conn, qname, qt)
+    if not res:
+      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      reply.add_answer(a)
+      return reply.pack()
     res = res[0]
+    if not res:
+      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      reply.add_answer(a)
+      return reply.pack()
     res = res[3]
+    if not res:
+      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      reply.add_answer(a)
+      return reply.pack()
     print(f'qname: {qname}, qtype: {qt}, res: {res}')
 
     #if qname in dns_records and qtype in dns_records[qname]:
