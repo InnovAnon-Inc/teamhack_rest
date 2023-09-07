@@ -54,6 +54,7 @@ jobs:
 
     - name: DB
       run: |
+        sudo postgres &
         sudo createuser  user
         sudo createdb -O user db
         echo '[postgresql]' >  database.ini
