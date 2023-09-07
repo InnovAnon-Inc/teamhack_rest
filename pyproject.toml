@@ -1,5 +1,6 @@
 [project]
 name = "teamhack"
+# TODO version needs to be gotten from environment
 version = "1.0.0"
 description = "Hack the Box Team Support Services"
 
@@ -7,10 +8,20 @@ description = "Hack the Box Team Support Services"
 requires = [
   "setuptools>=42",
   "wheel",
-  "psycopg2",
-  "pytest",
 ]
 build-backend = "setuptools.build_meta"
+
+dependencies = [
+  "psycopg2",
+]
+
+[project.optional-dependencies]
+test = [
+    "coverage"
+]
+rel = [
+    "twine"
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

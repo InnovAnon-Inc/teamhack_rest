@@ -17,10 +17,10 @@ def create_table(conn):
       curs.execute("""
         CREATE TABLE IF NOT EXISTS hosts (
           id       SERIAL        PRIMARY KEY,
-          hostname VARCHAR(255),
-          record   VARCHAR(  4),
-          ip       INET
-        ) UNIQUE(hostname, record)
+          hostname VARCHAR(255)  NOT NULL,
+          record   VARCHAR(  4)  NOT NULL,
+          ip       INET          NOT NULL
+        ) CONSTRAINT UNIQUE(hostname, record)
       """)
 
 def insert(conn, hostname, record, ip):
