@@ -19,8 +19,9 @@ def create_table(conn):
           id       SERIAL        PRIMARY KEY,
           hostname VARCHAR(255)  NOT NULL,
           record   VARCHAR(  4)  NOT NULL,
-          ip       INET          NOT NULL
-        ) CONSTRAINT UNIQUE(hostname, record)
+          ip       INET          NOT NULL,
+          UNIQUE(hostname, record)
+        )
       """)
 
 def insert(conn, hostname, record, ip):
