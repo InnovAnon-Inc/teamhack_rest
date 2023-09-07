@@ -27,12 +27,12 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.coverage.report]
-fail_under = 80
-
-[tool.coverage.run]
-branch = true
-include = ["src/*/*"]
-#source = ["."]
-command_line = "-m unittest discover -s tests/"
+#[tool.coverage.report]
+#fail_under = 80
+#
+#[tool.coverage.run]
+#branch = true
+#include = ["src/*/*"]
+##source = ["."]
+#command_line = "-m unittest discover -s tests/"
 

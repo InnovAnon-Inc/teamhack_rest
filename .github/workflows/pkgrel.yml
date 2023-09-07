@@ -49,6 +49,7 @@ jobs:
 
     - name: Test Deps
       run: |
+        touch setup.cfg
         pip install -e '.[test]'
 
     - name: Integration Test
@@ -59,6 +60,7 @@ jobs:
     # TODO new image
     - name: Release Deps
       run: |
+        touch setup.cfg
         pip install -e '.[rel]'
 
     - name: Release
