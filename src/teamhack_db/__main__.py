@@ -1,5 +1,6 @@
-from .cli  import start_cli
-from .conf import config
+from psycopg2 import connect
+from .cli     import start_cli
+from .conf    import config
 
 if __name__ == '__main__':
   params = config()

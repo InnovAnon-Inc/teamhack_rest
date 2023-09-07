@@ -1,3 +1,4 @@
+from psycopg2           import connect
 from teamhack_db.conf   import config
 from            .server import start_dns_server
 
