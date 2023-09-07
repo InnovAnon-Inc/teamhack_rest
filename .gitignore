@@ -1,4 +1,6 @@
+__pycache__/
 build/
+database.ini
 dist/
-src/teamhack.egg-info/
+src/*.egg-info/
 

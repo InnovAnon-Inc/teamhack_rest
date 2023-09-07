@@ -1,6 +1,18 @@
 from psycopg2 import connect
 
-conn = connect("dbname='dns' user='dns' host='192.168.1.76' password='69novass'")
+from teamhack_db.conf import config
+from teamhack_db.sql  import create_table
+from teamhack_db.sql  import drop_row_hostname
+from teamhack_db.sql  import drop_row_id
+from teamhack_db.sql  import drop_row_ip
+from teamhack_db.sql  import drop_table
+from teamhack_db.sql  import insert
+from teamhack_db.sql  import select
+from teamhack_db.sql  import select_hostname
+from teamhack_db.sql  import select_ip
+
+params = config()
+conn   = connect(**params)
 #conn.autocommit = True # change the behavior of commit
 
 drop_table(conn)
