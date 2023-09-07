@@ -1,6 +1,9 @@
 import socket
 from dnslib import *
 
+UPSTREAM_SERVER = '8.8.8.8'
+UPSTREAM_PORT   = 53
+
 # Function to handle DNS queries and return a response
 def handle_dns_query(conn, data):
     request = DNSRecord.parse(data)
@@ -18,11 +21,15 @@ def handle_dns_query(conn, data):
     #if qname in dns_records and qtype in dns_records[qname]:
     if res:
         if qtype == QTYPE.NS:
-            reply.add_answer(RR(rname=qname, rtype=qtype, rdata=NS(dns_records[qname][qtype])))
+            reply.add_answer(RR(rname=qname, rtype=qtype, rdata=NS(res)))
         else:
-            reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A(dns_records[qname][qtype])))
+            reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A(res)))
     else:
-        reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A('0.0.0.0')))
+        # TODO
+        #reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A('0.0.0.0')))
+        #q = DNSRecord(q=DNSQuestion(qname))
+        a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+        reply.add_answer(a)
 
     return reply.pack()
 
