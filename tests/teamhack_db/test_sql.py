@@ -21,7 +21,7 @@ TEST_HOSTNAME = "bookworm.htb"
 TEST_RECORD   = "A"
 TEST_IP       = "10.10.11.215"
 
-def test(f):
+def setup(f):
   def inner(*args, **kwargs):
     create_table(conn)
     try:
@@ -30,40 +30,41 @@ def test(f):
     finally: drop_table(conn)
   return inner
 
-@test
+@setup
 def test_select():
   v = select(conn)
-  assert v == (1, TEST_HOSTNAME, TEST_RECORD, TEST_IP)
+  assert v == [(TEST_HOSTNAME, TEST_RECORD, TEST_IP)]
 
-@test
+@setup
 def test_select_ip():
   v = select_ip(conn, TEST_IP)
-  assert v == (TEST_HOSTNAME,)
+  assert v == [(1, TEST_HOSTNAME, TEST_RECORD, TEST_IP)]
 
-@test
+@setup
 def test_select_hostname():
   v = select_hostname(conn, TEST_HOSTNAME)
-  assert v == TEST_IP
+  assert v == [(1, TEST_HOSTNAME, TEST_RECORD, TEST_IP)]
 
-@test
+@setup
 def test_drop_row_id():
   v = select_hostname(conn, TEST_HOSTNAME)[0]
+  v = v[0]
   drop_row_id(conn, v)
   v = select(conn)
-  assert v is None
+  assert v == []
 
-@test
+@setup
 def test_drop_row_hostname():  
   row = select_hostname(conn, TEST_HOSTNAME)
-  hn  = row[1]
+  hn  = row[0][1]
   drop_row_hostname(conn, hn)
   v = select(conn)
-  assert v is None
+  assert v == []
 
-@test
+@setup
 def test_drop_row_ip():
   for ip in select_ip(conn, TEST_IP):
     drop_row_ip(conn, ip[3])
   v = select(conn)
-  assert v is None
+  assert v == []
 
