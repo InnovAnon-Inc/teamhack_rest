@@ -13,24 +13,28 @@ def handle_dns_query(conn, data):
 
     qname = str(request.q.qname)
     qtype = request.q.qtype
+    if   qtype == QTYPE.NS: qt = 'NS'
+    elif qtype == QTYPE.A:  qt = 'A'
+    else:
+      a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      reply.add_answer(a)
+      return reply.pack()
 
-    res = select_hostname_recordtype(conn, qname, qtype)
+    res = select_hostname_recordtype(conn, qname, qt)
     res = res[0]
     res = res[3]
-    print(f'qname: {qname}, qtype: {qtype}, res: {res}')
+    print(f'qname: {qname}, qtype: {qt}, res: {res}')
 
     #if qname in dns_records and qtype in dns_records[qname]:
-    if res:
-        if qtype == QTYPE.NS:
-            reply.add_answer(RR(rname=qname, rtype=qtype, rdata=NS(res)))
-        else:
-            reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A(res)))
-    else:
-        # TODO
-        #reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A('0.0.0.0')))
-        #q = DNSRecord(q=DNSQuestion(qname))
-        a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-        reply.add_answer(a)
+    #if res:
+    if qtype == QTYPE.NS: reply.add_answer(RR(rname=qname, rtype=qtype, rdata=NS(res)))
+    else:                 reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A(res)))
+    #else:
+    #    # TODO
+    #    #reply.add_answer(RR(rname=qname, rtype=qtype, rdata=A('0.0.0.0')))
+    #    #q = DNSRecord(q=DNSQuestion(qname))
+    #    a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+    #    reply.add_answer(a)
 
     return reply.pack()
 
