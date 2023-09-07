@@ -12,7 +12,7 @@ def drop_table(conn):
 #    with conn.cursor() as curs:
 #        curs.execute("""CREATE TYPE record_type AS ENUM ('A', 'AAAA', 'MX', 'NS')""")
 def create_table(conn):
-    create_type_record(conn)
+    #create_type_record(conn)
     with conn.cursor() as curs:
       curs.execute("""
         CREATE TABLE IF NOT EXISTS hosts (
