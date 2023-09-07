@@ -54,11 +54,11 @@ jobs:
 
     - name: DB
       run: |
-        sudo createuser -h service user
-        sudo createdb           -O user db
+        #sudo createuser  user
+        #sudo createdb -O user db
         echo '[postgresql]' >  database.ini
-        echo host=service >> database.ini
-        echo database=db    >> database.ini
+        echo host=localhost >> database.ini
+        echo database=postgres    >> database.ini
         echo user=postgres  >> database.ini
         echo password=postgres >> database.ini
     
@@ -118,7 +118,6 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_HOST: service
           POSTGRES_PASSWORD: postgres
         # Set health checks to wait until postgres has started
         options: >-
