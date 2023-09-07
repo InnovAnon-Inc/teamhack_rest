@@ -54,6 +54,7 @@ jobs:
 
     - name: DB
       run: |
+        apt-cache search postgre | grep server
         ls /usr/bin|grep -e postgre -e pg
         sudo postgres &
         sudo createuser  user
