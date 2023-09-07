@@ -53,9 +53,11 @@ jobs:
 
     - name: Integration Test
       run: |
-        export PATH=$HOME/.local/bin:$PATH
-        pytest
-        coverage run
+        #export PATH=$HOME/.local/bin:$PATH
+        #pytest
+        #coverage run
+        python -m pytest
+        python -m coverage run
 
     # TODO new image
     - name: Release Deps
