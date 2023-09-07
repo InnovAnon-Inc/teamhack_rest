@@ -1,3 +1,4 @@
+import dnslib
 from psycopg2         import connect
 
 from teamhack_db.conf import config
@@ -18,7 +19,7 @@ conn.autocommit = True # change the behavior of commit
 drop_table(conn)
 
 TEST_HOSTNAME = "bookworm.htb"
-TEST_RECORD   = "A"
+TEST_RECORD   = QTYPE.A
 TEST_IP       = "10.10.11.215"
 
 def setup(f):

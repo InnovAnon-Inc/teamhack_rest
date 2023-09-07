@@ -1,3 +1,4 @@
+from dnslib          import *
 from psycopg2 import connect
 
 from .sql     import create_table, insert, select_hostname_recordtype
