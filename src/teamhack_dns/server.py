@@ -20,6 +20,7 @@ def handle_dns_query(conn, data):
       reply.add_answer(a)
       return reply.pack()
 
+    print(f'qname: {qname}, qt: {qt}, qtype: {qtype}')
     res = select_hostname_recordtype(conn, qname, qt)
     if not res:
       a = reply.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
