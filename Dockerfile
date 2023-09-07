@@ -8,7 +8,7 @@ RUN pip install      \
 && rm -frv           \
   /tmp/dist/
 
-ENTRYPOINT[          \
+ENTRYPOINT [         \
   "/usr/bin/python", \
   "-m",              \
   "teamhack_db",     \
