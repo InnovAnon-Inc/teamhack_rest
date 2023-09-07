@@ -12,6 +12,8 @@ def start_cli():
   while True: # User interface to add and lookup DNS records
     choice = input('\n \n \n - "1" to add a DNS record, \n \n - "2" to add a name server record, \n \n - "3" to lookup a DNS record: \n \n \n')
 
+    if choice == '0': break
+
     if choice == '1':
         name        = input('Enter the name of the DNS record: \n ')
         record_type = input('Enter the type of the DNS record (A, AAAA, MX, etc.): \n')
