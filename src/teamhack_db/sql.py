@@ -1,6 +1,6 @@
 #from psycopg2 import connect
 
-def drop_type_record(conn):
+def drop_type_record(conn): # TODO delete this
     with conn.cursor() as curs:
         curs.execute("""DROP TYPE IF EXISTS record_type""")
 def drop_table(conn):
@@ -8,9 +8,9 @@ def drop_table(conn):
         curs.execute("""DROP TABLE IF EXISTS hosts""")
     drop_type_record(conn)
 
-def create_type_record(conn):
-    with conn.cursor() as curs:
-        curs.execute("""CREATE TYPE IF NOT EXISTS record_type AS ENUM ('A', 'AAAA', 'MX', 'NS')""")
+#def create_type_record(conn):
+#    with conn.cursor() as curs:
+#        curs.execute("""CREATE TYPE record_type AS ENUM ('A', 'AAAA', 'MX', 'NS')""")
 def create_table(conn):
     create_type_record(conn)
     with conn.cursor() as curs:
@@ -18,7 +18,7 @@ def create_table(conn):
         CREATE TABLE IF NOT EXISTS hosts (
           id       SERIAL        PRIMARY KEY,
           hostname VARCHAR(255)  NOT NULL,
-          record   VARCHAR(  4)  NOT NULL,
+          record   INT           NOT NULL,
           ip       INET          NOT NULL,
           UNIQUE(hostname, record)
         )

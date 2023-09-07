@@ -12,22 +12,30 @@ def start_cli(conn):
         name        = input('Enter the name of the DNS record: \n ')
         record_type = input('Enter the type of the DNS record (A, AAAA, MX, etc.): \n')
         value       = input('Enter the value of the DNS record: \n')
-        insert(conn, name, record_type, value)
+        if   record_type == 'A':  rt = QTYPE.A
+        elif record_type == 'NS': rt = QTYPE.NS
+        elif record_type == 'MX': rt = QTYPE.MX
+        else: exit(1)
+        insert(conn, name, rt, value)
         conn.commit()
         print(f'DNS record added: {name} {record_type} {value} \n')
 
     elif choice == '2':
         name     = input('Enter the name of the domain: \n')
         ns_value = input('Enter the name server value: \n')
-        insert(conn, name, 'NS', ns_value)
+        insert(conn, name, QTYPE.NS, ns_value)
         conn.commit()
         print(f'NS record added for {name}: {ns_value} \n')
 
     elif choice == '3':
         name        = input('Enter the name of the DNS record: \n')
         record_type = input('Enter the type of the DNS record (A, AAAA, MX, NS, etc.):\n ')
+        if   record_type == 'A':  rt = QTYPE.A
+        elif record_type == 'NS': rt = QTYPE.NS
+        elif record_type == 'MX': rt = QTYPE.MX
+        else: exit(1)
 
-        ip          = select_hostname_recordtype(conn, name, record_type)
+        ip          = select_hostname_recordtype(conn, name, rt)
         #if name in dns_records and record_type in dns_records[name]:
         print(f'{name} {record_type} {ip}')
         #else:

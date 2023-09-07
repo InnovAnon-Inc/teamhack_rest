@@ -13,15 +13,15 @@ def handle_dns_query(conn, data):
 
     qname = str(request.q.qname)
     qtype = request.q.qtype
-    if   qtype == QTYPE.NS: qt = 'NS'
-    elif qtype == QTYPE.A:  qt = 'A'
-    else:
-      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-      request.add_answer(a)
-      return request.pack()
+    #if   qtype == QTYPE.NS: qt = 'NS'
+    #elif qtype == QTYPE.A:  qt = 'A'
+    #else:
+    #  a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+    #  request.add_answer(a)
+    #  return request.pack()
 
     print(f'qname: {qname}, qt: {qt}, qtype: {qtype}')
-    res = select_hostname_recordtype(conn, qname, qt)
+    res = select_hostname_recordtype(conn, qname, qtype)
     if not res:
       a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
       return a
