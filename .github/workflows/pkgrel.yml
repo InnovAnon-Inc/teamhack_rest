@@ -22,14 +22,14 @@ jobs:
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: >
-          libpq-dev python3 python-is-python3 python3-pip
+          libpq-dev postgresql python3 python-is-python3 python3-pip
         version: 1.0
     
     - name: Checkout code
       uses: actions/checkout@v3
       #with:
       #  path: "repo"
-
+    
     - name: Build Deps
       run: |
         pip install build
@@ -51,6 +51,15 @@ jobs:
       run: |
         #pip install '.[test]'
         pip install coverage pytest
+
+    - name: DB
+      run: |
+        sudo createuser  user
+        sudo createdb -O user db
+        echo '[postgresql]' >  database.ini
+        echo host=localhost >> database.ini
+        echo database=db    >> database.ini
+        echo user=user      >> database.ini
 
     - name: Integration Test
       run: |
