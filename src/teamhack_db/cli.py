@@ -1,10 +1,12 @@
 from psycopg2 import connect
 
 from .conf    import config
-from .sql     import insert, select_hostname_recordtype
+from .sql     import create_table, insert, select_hostname_recordtype
 
 params = config()
 conn   = connect(**params)
+
+create_table(conn)
 
 def start_cli():
   while True: # User interface to add and lookup DNS records
