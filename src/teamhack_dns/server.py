@@ -1,6 +1,6 @@
 import socket
 from dnslib          import *
-from teamhack_db.sql import select_hostname_record
+from teamhack_db.sql import select_hostname_recordtype
 
 UPSTREAM_SERVER = '8.8.8.8'
 UPSTREAM_PORT   = 53
@@ -14,7 +14,7 @@ def handle_dns_query(conn, data):
     qname = str(request.q.qname)
     qtype = request.q.qtype
 
-    res = select_hostname_record(conn, qname, qtype)
+    res = select_hostname_recordtype(conn, qname, qtype)
     res = res[0]
     res = res[3]
     print(f'qname: {qname}, qtype: {qtype}, res: {res}')
