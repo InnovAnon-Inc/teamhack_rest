@@ -26,11 +26,11 @@ def handle_dns_query(conn, data):
     if not res:
       a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
       return a
-    #res = res[0]
-    #print(f'res: {res}')
-    #if not res:
-    #  a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-    #  return a
+    res = res[4]
+    print(f'res: {res}')
+    if not res:
+      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+      return a
     #res = res[3]
     #if not res:
     #  a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
