@@ -9,7 +9,7 @@ dependencies = [
   "dnslib",
   "json",
   "psycopg2",
-  "socket",
+  #"socket",
 ]
 
 [project.optional-dependencies]
