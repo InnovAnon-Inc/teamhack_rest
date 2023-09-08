@@ -37,8 +37,18 @@ jobs:
     #- name: Optional Build Deps
     #  run: |
     #    pip install -e '.[dev]'
+    #
+    - name: Bump version and push tag Dryrun
+      id:   tag_version_dryrun
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        tag_prefix:
+        dry_run: true
 
     - name: Build
+      env:
+        TEAMHACK_VERSION=${{ steps.tag_version_dryrun.outputs.new_tag }}
       run: |
         python -m build
 
@@ -56,20 +66,20 @@ jobs:
       run: |
         #sudo createuser  user
         #sudo createdb -O user db
-        echo '[postgresql]' >  database.ini
-        echo host=localhost >> database.ini
-        echo database=postgres    >> database.ini
-        echo user=postgres  >> database.ini
-        echo password=postgres >> database.ini
+        echo '[postgresql]'    >  test_database.ini
+        echo host=localhost    >> test_database.ini
+        echo database=postgres >> test_database.ini
+        echo user=postgres     >> test_database.ini
+        echo password=postgres >> test_database.ini
     
-    #- name: Integration Test
-    #  run: |
-    #    #export PATH=$HOME/.local/bin:$PATH
-    #    #pytest
-    #    #coverage run
-    #    python -m pytest
-    #    python -m coverage run
-    #
+    - name: Integration Test
+      run: |
+        #export PATH=$HOME/.local/bin:$PATH
+        #pytest
+        #coverage run
+        python -m pytest
+        python -m coverage run
+    
     ## TODO new image
     #- name: Release Deps
     #  run: |
@@ -87,7 +97,7 @@ jobs:
         docker build -t teamhack .
     #- name: Deploy Docker Image
     #  run: |
-    #    docker deploy   dnspy
+    #    docker deploy   teamhack
 
     #- name: sign installation package
     #  working-directory: ${{ github.workspace }}
@@ -106,9 +116,7 @@ jobs:
         fail_on_unmatched_files: true
         generate_release_notes: true
         files: |
-          slapd_*.*.*+dfsg-*ubuntu*.*.*.*_amd64.deb
-          libldap-*.*-*_*.*.*+dfsg-*ubuntu*.*.*.*_amd64.deb
-          libldap-common_*.*.*+dfsg-*ubuntu*.*.*.*_all.deb
+          dist/*
 
     # Service containers to run with `container-job`
     services:

@@ -1,7 +1,8 @@
 [project]
 name = "teamhack"
 # TODO version needs to be gotten from environment
-version = "1.0.0"
+#version = "1.0.0"
+dynamic = ["version"]
 description = "Hack the Box Team Support Services"
 
 dependencies = [
