@@ -85,15 +85,20 @@ jobs:
 
     - name: Configure Twine
       run: |
-        echo '[pypi]'                     >  ~/.pypirc
-        echo 'username = __token__'       >> ~/.pypirc
-        echo "password = $PYPI_API_TOKEN" >> ~/.pypirc
+        echo '[pypi]'                       >  ~/.pypirc
+        echo 'username = __token__'         >> ~/.pypirc
+        echo "password = $PYPI_API_TOKEN"   >> ~/.pypirc
+
+        echo '[testpypi]'                   >> ~/.pypirc
+        echo 'username = __token__'         >> ~/.pypirc
+        echo "password = $TESTPYPI_API_KEY" >> ~/.pypirc
       env:
         PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
 
     - name: Release
       run: |
-        python3 -m twine upload --repository pypi --verbose dist/*
+        #python3 -m twine upload --repository testpypi --verbose dist/*
+        python3 -m twine upload --repository     pypi --verbose dist/*
 
     # TODO new image
     - name: Configure GPG Key
