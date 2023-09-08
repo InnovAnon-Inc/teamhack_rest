@@ -67,7 +67,7 @@ jobs:
         #sudo createuser  user
         #sudo createdb -O user db
         echo '[postgresql]'    >  test_database.ini
-        echo host=postgres.db  >> test_database.ini
+        echo host=localhost    >> test_database.ini
         echo database=postgres >> test_database.ini
         echo user=postgres     >> test_database.ini
         echo password=postgres >> test_database.ini
@@ -126,7 +126,7 @@ jobs:
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
-      postgres.db:
+      postgres:
         # Docker Hub image
         image: postgres
         # Provide the password for postgres
@@ -138,4 +138,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
 
