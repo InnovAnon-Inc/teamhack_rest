@@ -12,7 +12,7 @@ from teamhack_db.sql  import select
 from teamhack_db.sql  import select_hostname
 from teamhack_db.sql  import select_ip
 
-params = config(filename="test_database.ini")
+params = config(filename="etc/test_database.ini")
 conn   = connect(**params)
 conn.autocommit = True # change the behavior of commit
 

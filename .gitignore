@@ -1,6 +1,6 @@
 build/
 .coverage
-*database.ini
+etc/*database.ini
 dist/
 __pycache__/
 src/*.egg-info/
