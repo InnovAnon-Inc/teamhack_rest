@@ -129,6 +129,13 @@ jobs:
           dist/*
 
     # TODO new image
+    - name: Authenticate with Docker Hub
+      run: |
+        docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
     - name: Build Docker Image
       run: |
         docker build -t "innovanon/teamhack:$TEAMHACK_VERSION" .
