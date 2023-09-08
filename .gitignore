@@ -1,6 +1,6 @@
 __pycache__/
 build/
-database.ini
+*database.ini
 dist/
 src/*.egg-info/
 

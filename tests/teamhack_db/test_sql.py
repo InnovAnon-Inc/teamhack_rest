@@ -12,13 +12,13 @@ from teamhack_db.sql  import select
 from teamhack_db.sql  import select_hostname
 from teamhack_db.sql  import select_ip
 
-params = config()
+params = config(filename="test_database.ini")
 conn   = connect(**params)
 conn.autocommit = True # change the behavior of commit
 
 drop_table(conn)
 
-TEST_HOSTNAME = "bookworm.htb"
+TEST_HOSTNAME = "bookworm.htb."
 TEST_RECORD   = QTYPE.A
 TEST_IP       = "10.10.11.215"
 
