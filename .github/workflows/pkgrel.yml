@@ -136,7 +136,7 @@ jobs:
       run: |
         docker push    "innovanon/teamhack:$TEAMHACK_VERSION"
       env:
-        TEAMHACK_VERSION: ${{ steps.tag_version_dryrun.outputs.new_tag }}
+        TEAMHACK_VERSION: ${{ steps.tag_version.outputs.new_tag }}
 
     # Service containers to run with `container-job`
     services:
