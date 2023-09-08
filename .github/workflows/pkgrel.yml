@@ -138,13 +138,13 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t "innovanon/teamhack_dns:$TEAMHACK_VERSION" .
+        docker build -t "innovanon/teamhack_rest:$TEAMHACK_VERSION" .
       env:
         TEAMHACK_VERSION: ${{ steps.tag_version.outputs.new_tag }}
 
     - name: Deploy Docker Image
       run: |
-        docker push     "innovanon/teamhack_dns:$TEAMHACK_VERSION"
+        docker push     "innovanon/teamhack_rest:$TEAMHACK_VERSION"
       env:
         TEAMHACK_VERSION: ${{ steps.tag_version.outputs.new_tag }}
 
