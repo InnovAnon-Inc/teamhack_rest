@@ -7,7 +7,7 @@ description = "Hack the Box Team Support Services"
 
 dependencies = [
   "dnslib",
-  "json",
+  #"json",
   "psycopg2",
   #"socket",
 ]
