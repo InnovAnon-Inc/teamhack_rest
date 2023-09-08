@@ -1,4 +1,4 @@
-# DNS-Server
+# REST API for DB used by PG-backed DNS-Server
 simple dns server using python
 ![example workflow](https://github.com/InnovAnon-Inc/teamhack/actions/workflows/pkgrel.yml/badge.svg)
 
