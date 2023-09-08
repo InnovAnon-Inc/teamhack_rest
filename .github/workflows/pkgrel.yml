@@ -47,8 +47,8 @@ jobs:
         dry_run: true
 
     - name: Build
-      env:
-        TEAMHACK_VERSION=${{ steps.tag_version_dryrun.outputs.new_tag }}
+      with:
+        TEAMHACK_VERSION: ${{ steps.tag_version_dryrun.outputs.new_tag }}
       run: |
         python -m build
 
