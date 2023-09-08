@@ -47,10 +47,10 @@ jobs:
         dry_run: true
 
     - name: Build
-      with:
-        TEAMHACK_VERSION: ${{ steps.tag_version_dryrun.outputs.new_tag }}
       run: |
         python -m build
+      env:
+        TEAMHACK_VERSION: ${{ steps.tag_version_dryrun.outputs.new_tag }}
 
     # TODO new image
     - name: Install
