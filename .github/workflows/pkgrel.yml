@@ -66,11 +66,11 @@ jobs:
       run: |
         #sudo createuser  user
         #sudo createdb -O user db
-        echo '[postgresql]'    >  test_database.ini
-        echo host=localhost    >> test_database.ini
-        echo database=postgres >> test_database.ini
-        echo user=postgres     >> test_database.ini
-        echo password=postgres >> test_database.ini
+        echo '[postgresql]'    >  etc/test_database.ini
+        echo host=localhost    >> etc/test_database.ini
+        echo database=postgres >> etc/test_database.ini
+        echo user=postgres     >> etc/test_database.ini
+        echo password=postgres >> etc/test_database.ini
     
     - name: Integration Test
       run: |
