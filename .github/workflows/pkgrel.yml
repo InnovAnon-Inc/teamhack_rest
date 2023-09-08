@@ -131,10 +131,12 @@ jobs:
     # TODO new image
     - name: Build Docker Image
       run: |
-        docker build -t teamhack .
-    #- name: Deploy Docker Image
-    #  run: |
-    #    docker deploy   teamhack
+        docker build -t innovnaon/teamhack .
+    - name: Deploy Docker Image
+      run: |
+        docker push    "innovanon/teamhack:$TEAMHACK_VERSION"
+      env:
+        TEAMHACK_VERSION: ${{ steps.tag_version_dryrun.outputs.new_tag }}
 
     # Service containers to run with `container-job`
     services:
