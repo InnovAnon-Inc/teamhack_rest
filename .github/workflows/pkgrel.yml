@@ -75,7 +75,7 @@ jobs:
     - name: Integration Test
       run: |
         python -m pytest
-        python -m coverage run
+        #python -m coverage run
     
     # TODO new image
     - name: Configure GPG Key
