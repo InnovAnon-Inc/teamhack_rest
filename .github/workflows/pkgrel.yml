@@ -131,7 +131,7 @@ jobs:
     # TODO new image
     - name: Build Docker Image
       run: |
-        docker build -t innovnaon/teamhack .
+        docker build -t innovanon/teamhack .
     - name: Deploy Docker Image
       run: |
         docker push    "innovanon/teamhack:$TEAMHACK_VERSION"
