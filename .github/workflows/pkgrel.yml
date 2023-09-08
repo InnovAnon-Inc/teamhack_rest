@@ -74,12 +74,36 @@ jobs:
     
     - name: Integration Test
       run: |
-        #export PATH=$HOME/.local/bin:$PATH
-        #pytest
-        #coverage run
         python -m pytest
         python -m coverage run
     
+    # TODO new image
+    - name: Configure GPG Key
+      run: |
+        echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+      env:
+        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+
+    - name: Sign Installation Package
+      working-directory: ${{ github.workspace }}/dist
+      run: |
+        find . -mindepth 1 -exec gpg --yes --detach-sig '{}' \;
+
+    - name: Bump version and push tag
+      id:   tag_version
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        fail_on_unmatched_files: true
+        generate_release_notes: true
+        files: |
+          dist/*
+
     ## TODO new image
     #- name: Release Deps
     #  run: |
@@ -98,25 +122,6 @@ jobs:
     #- name: Deploy Docker Image
     #  run: |
     #    docker deploy   teamhack
-
-    #- name: sign installation package
-    #  working-directory: ${{ github.workspace }}
-    #  run: gpg --yes --detach-sig linux-${{ env.tag }}.tar.xz
-
-    - name: Bump version and push tag
-      id:   tag_version
-      uses: mathieudutour/github-tag-action@v6.1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: ${{ steps.tag_version.outputs.new_tag }}
-        fail_on_unmatched_files: true
-        generate_release_notes: true
-        files: |
-          dist/*
 
     # Service containers to run with `container-job`
     services:
