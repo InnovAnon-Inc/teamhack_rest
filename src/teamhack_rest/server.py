@@ -1,25 +1,12 @@
 from flask         import Flask, jsonify, request
 from flask_restful import Resource, Api
+from importlib     import import_module
+from inspect       import getmembers, getmodulename
+from tempfile      import NamedTemporaryFile
 #from teamhack_db.sql import select_hostname_recordtype
 
 app = Flask(__name__)
 api = Api(app)
-
-# on the terminal type: curl http://127.0.0.1:5000/
-# returns hello world when we use GET.
-# returns the data that we send when we use POST.
-#@app.route('/', methods = ['GET', 'POST'])
-def home():
-	if(request.method == 'GET'):
-
-		data = "hello world"
-		return jsonify({'data': data})
-
-
-#@app.route('/home/<int:num>', methods = ['GET'])
-def disp(num):
-
-	return jsonify({'data': num**2})
 
 #class Hello(Resource):
 #  def get(self):
@@ -35,9 +22,32 @@ def disp(num):
 #  def
 
 
+class AddResource(Resource):
+  def get(self, file): pass
+
+  def post(self, file):
+    path = self.upload_file(file)
+    modn = getmodulename(path)
+    mod  = import_module(modn, package=None)
+    mems = getmembers(mod, lambda m: isclass(m) and issubclass(m, Resource) and m is not Resource)
+    for mem in mems:
+      rp = f'{modn}.{mem}'
+      api.add_resource(rp, mem)
+    return jsonify({'name': modn})
+
+  def predicate(self, m):
+    if not isclass(m):              return False # guard following checks from exceptions
+    if m is Resource:               return False # skip non-subclass
+    if not issubclass(m, Resource): return False # check for subclass
+    return True
+
+  def upload_file(self, file):
+    path = tempfile.NamedTemporaryFile(delete=False)
+    path.write(file)
+    return path
+
 # Function to start the DNS server and listen for requests
 def start_server(conn):
-  api.add_resource(home, '/')
-  api.add_resource(disp, '/square/<int:num>')
-  app.run(debug = True)
+  api.add_resource(AddResource, '/teamhack_db.server.AddResource/<str:file>')
+  app.run(debug=True)
 
