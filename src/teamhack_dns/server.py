@@ -22,13 +22,15 @@ def handle_dns_query(conn, data):
 
     print(f'qname: {qname}, qtype: {qtype}')
     res = select_hostname_recordtype(conn, qname, qtype)
+    print(f'res: {res}')
     if not res:
       a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
       return a
-    res = res[0]
-    if not res:
-      a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
-      return a
+    #res = res[0]
+    #print(f'res: {res}')
+    #if not res:
+    #  a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
+    #  return a
     #res = res[3]
     #if not res:
     #  a = request.send(UPSTREAM_SERVER, UPSTREAM_PORT, tcp=False, timeout=10)
