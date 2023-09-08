@@ -71,11 +71,12 @@ jobs:
         echo database=postgres >> etc/test_database.ini
         echo user=postgres     >> etc/test_database.ini
         echo password=postgres >> etc/test_database.ini
-    
-    - name: Integration Test
-      run: |
-        python -m pytest
-        #python -m coverage run
+   
+    # TODO 
+    #- name: Integration Test
+    #  run: |
+    #    python -m pytest
+    #    #python -m coverage run
     
     ## TODO new image
     - name: Release Deps

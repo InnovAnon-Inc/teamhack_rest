@@ -6,10 +6,12 @@ dynamic = ["version"]
 description = "Hack the Box Team Support Services"
 
 dependencies = [
-  "dnslib",
+  #"dnslib",
   #"json",
+  "flask-restful",
   "psycopg2",
   #"socket",
+  "teamhack_db",
 ]
 
 [project.optional-dependencies]

@@ -1,7 +1,7 @@
-from psycopg2        import connect
-from teamhack_db.sql import create_table
-from .cli            import start_cli
-from .conf           import config
+from psycopg2         import connect
+from teamhack_db.conf import config
+from teamhack_db.sql  import create_table
+from .server          import start_server
 
 if __name__ == '__main__':
   params = config()
@@ -9,5 +9,5 @@ if __name__ == '__main__':
 
   create_table(conn)
   conn.commit()
-  start_cli(conn)
+  start_server(conn)
 
