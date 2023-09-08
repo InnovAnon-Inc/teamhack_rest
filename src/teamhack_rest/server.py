@@ -29,7 +29,7 @@ class AddResource(Resource):
     path = self.upload_file(file)
     modn = getmodulename(path)
     mod  = import_module(modn, package=None)
-    mems = getmembers(mod, lambda m: isclass(m) and issubclass(m, Resource) and m is not Resource)
+    mems = getmembers(mod, self.predicate)
     for mem in mems:
       rp = f'{modn}.{mem}'
       api.add_resource(rp, mem)
@@ -48,6 +48,6 @@ class AddResource(Resource):
 
 # Function to start the DNS server and listen for requests
 def start_server(conn):
-  api.add_resource(AddResource, '/teamhack_db.server.AddResource/<str:file>')
+  api.add_resource(AddResource, '/teamhack_db.server.AddResource/<string:file>')
   app.run(debug=True)
 
