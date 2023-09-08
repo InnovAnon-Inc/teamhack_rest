@@ -8,5 +8,6 @@ if __name__ == '__main__':
   conn   = connect(**params)
 
   create_table(conn)
+  conn.commit()
   start_dns_server(conn)
 
