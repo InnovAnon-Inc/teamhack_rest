@@ -33,10 +33,13 @@ def dispatch(data, hostname_recordtype_cb, hostname_cb, ip_cb):
 @app.route('/create', methods=['POST'])
 def add():
   data = request.get_json(force=True)
+  if 'host' not in data: return '', 404
   host = data['host']
   host = get_name(host)
+  if 'type' not in data: return '', 404
   rt   = data['type']
   rt   = get_record_type(rt)
+  if 'inet' not in data: return '', 404
   addr = data['inet']
   insert(conn, host, rt, addr)
   return '', 204
