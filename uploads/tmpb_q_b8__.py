@@ -1,0 +1,1 @@
+b'from flask_restful import Resource\n\nclass ShitPiss(Resource):\n  def get (self): return "shit";\n  def post(self): return "piss";'

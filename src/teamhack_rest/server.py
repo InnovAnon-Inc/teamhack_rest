@@ -1,53 +1,57 @@
-from flask         import Flask, jsonify, request
-from flask_restful import Resource, Api
-from importlib     import import_module
-from inspect       import getmembers, getmodulename
-from tempfile      import NamedTemporaryFile
-#from teamhack_db.sql import select_hostname_recordtype
+from flask          import Flask, jsonify, request
+#from flask_restful  import Resource, Api
+#from importlib      import import_module
+#from importlib.util import find_spec, LazyLoader, module_from_spec, spec_from_file_location
+#from inspect        import getmembers, getmodulename, isclass
+#from sys            import modules, path
+#from tempfile       import NamedTemporaryFile
+from teamhack_db.sql import insert
 
 app = Flask(__name__)
-api = Api(app)
+#api = Api(app)
+conn = None # TODO hackish
 
-#class Hello(Resource):
-#  def get(self):
-#    return jsonify({'message': 'hello'})
-#  def post(self):
-#    data = request.get_json()
-#    return jsonify({'data': data}), 201
-#
-#class DNS_C(Resource):
-#  def get(self, hostname, record_type, address):
-#    pass
-#class DNS_R(Resource):
-#  def
+def dispatch(data, hostname_recordtype_cb, hostname_cb, ip_cb):
+  if 'host' in data and 'type' in data:
+    host = data['host']
+    rt   = data['type']
+    ret  = hostname_recordtype_cb(conn, host, rt)
+    return ret
+  if 'host' in data and 'type' not in data:
+    host = data['host']
+    ret  = hostname_cb(conn, host)
+    return ret
+  if 'inet' in data:
+    addr = data['inet']
+    ret  = ip_cb(conn, addr)
+    return ret
+  return '', 404
 
+@app.route('/create')
+def add():
+  data = request.get_json(force=True)
+  host = data['host']
+  rt   = data['type']
+  addr = data['inet']
+  insert(conn, host, rt, addr)
+  return '', 204
 
-class AddResource(Resource):
-  def get(self, file): pass
+@app.route('/retrieve')
+def retrieve():
+  data = request.get_json(force=True)
+  return dispatch(data, select_hostname_recordtype, select_hostname, select_ip)
 
-  def post(self, file):
-    path = self.upload_file(file)
-    modn = getmodulename(path)
-    mod  = import_module(modn, package=None)
-    mems = getmembers(mod, self.predicate)
-    for mem in mems:
-      rp = f'{modn}.{mem}'
-      api.add_resource(rp, mem)
-    return jsonify({'name': modn})
+@app.route('/update')
+def update():
+  # TODO
+  return '', 404
 
-  def predicate(self, m):
-    if not isclass(m):              return False # guard following checks from exceptions
-    if m is Resource:               return False # skip non-subclass
-    if not issubclass(m, Resource): return False # check for subclass
-    return True
+@app.route('/delete')
+def delete():
+  data = request.get_json(force=True)
+  return dispatch(data, drop_row_hostname_recordtype, drop_row_hostname, drop_row_ip)
 
-  def upload_file(self, file):
-    path = tempfile.NamedTemporaryFile(delete=False)
-    path.write(file)
-    return path
-
-# Function to start the DNS server and listen for requests
-def start_server(conn):
-  api.add_resource(AddResource, '/teamhack_db.server.AddResource/<string:file>')
+def start_server(fconn):
+  conn = fconn
   app.run(debug=True)
 

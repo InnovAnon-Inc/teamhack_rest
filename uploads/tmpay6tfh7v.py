@@ -1,0 +1,1 @@
+b"class Test:\n  def __init__(self): print('init')\n  def foo(self): print('foo')"

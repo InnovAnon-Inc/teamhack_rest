@@ -1,0 +1,16 @@
+class Test:
+  def __init__(self): print('test')
+  def test(self): print('test')
+
+class Foo:
+  def __init__(self): print('foo')
+  def foo(self): print('foo')
+
+class Bar:
+  def __init__(self): print('bar')
+  def bar(self): print('bar')
+
+class Baz:
+  def __init__(self): print('baz')
+  def baz(self): print('baz')
+

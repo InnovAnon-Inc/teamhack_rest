@@ -1,0 +1,1 @@
+b"class Test:\n  def __init__(self): print('test')\n  def test(self): print('test')\n\nclass Foo:\n  def __init__(self): print('foo')\n  def foo(self): print('foo')\n\nclass Bar:\n  def __init__(self): print('bar')\n  def bar(self): print('bar')\n\nclass Baz:\n  def __init__(self): print('baz')\n  def baz(self): print('baz')"
