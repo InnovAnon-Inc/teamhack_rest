@@ -1,7 +1,10 @@
 #! /usr/bin/env bash
 set -euxo nounset
-(( ! $#   ))
 ((   $UID ))
+if (( $# )) ; then
+     M="$*"
+else M=update
+fi
 git pull
 git add .
 git commit -m update || :
