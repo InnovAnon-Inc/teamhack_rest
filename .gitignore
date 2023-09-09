@@ -4,4 +4,5 @@ etc/*database.ini
 dist/
 __pycache__/
 src/*.egg-info/
+uploads/
 
