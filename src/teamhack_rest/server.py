@@ -5,7 +5,7 @@ from flask          import Flask, jsonify, request
 #from inspect        import getmembers, getmodulename, isclass
 #from sys            import modules, path
 #from tempfile       import NamedTemporaryFile
-from teamhack_db.sql import insert
+from teamhack_db.sql import insert, get_name, get_record_type
 
 app = Flask(__name__)
 #api = Api(app)
@@ -14,11 +14,14 @@ conn = None # TODO hackish
 def dispatch(data, hostname_recordtype_cb, hostname_cb, ip_cb):
   if 'host' in data and 'type' in data:
     host = data['host']
+    host = get_name(host)
     rt   = data['type']
+    rt   = get_record_type(rt)
     ret  = hostname_recordtype_cb(conn, host, rt)
     return ret
   if 'host' in data and 'type' not in data:
     host = data['host']
+    host = get_name(host)
     ret  = hostname_cb(conn, host)
     return ret
   if 'inet' in data:
@@ -31,7 +34,9 @@ def dispatch(data, hostname_recordtype_cb, hostname_cb, ip_cb):
 def add():
   data = request.get_json(force=True)
   host = data['host']
+  host = get_name(host)
   rt   = data['type']
+  rt   = get_record_type(rt)
   addr = data['inet']
   insert(conn, host, rt, addr)
   return '', 204
