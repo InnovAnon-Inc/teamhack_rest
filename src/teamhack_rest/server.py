@@ -30,7 +30,7 @@ def dispatch(data, hostname_recordtype_cb, hostname_cb, ip_cb):
     return ret
   return '', 404
 
-@app.route('/create')
+@app.route('/create', methods=['POST'])
 def add():
   data = request.get_json(force=True)
   host = data['host']
@@ -41,17 +41,17 @@ def add():
   insert(conn, host, rt, addr)
   return '', 204
 
-@app.route('/retrieve')
+@app.route('/retrieve', methods=['POST'])
 def retrieve():
   data = request.get_json(force=True)
   return dispatch(data, select_hostname_recordtype, select_hostname, select_ip)
 
-@app.route('/update')
+@app.route('/update', methods=['POST'])
 def update():
   # TODO
   return '', 404
 
-@app.route('/delete')
+@app.route('/delete', methods=['POST'])
 def delete():
   data = request.get_json(force=True)
   return dispatch(data, drop_row_hostname_recordtype, drop_row_hostname, drop_row_ip)
