@@ -61,7 +61,7 @@ def create_app(conn):
 
   return app
 
-def start_server(conn, host=host, port=port):
+def start_server(conn, host="0.0.0.0", *args, **kwargs):
   app = create_app(conn)
-  app.run(debug=True, host=host, port=port)
+  app.run(debug=True, host=host, *args, **kwargs)
 

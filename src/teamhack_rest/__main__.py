@@ -9,5 +9,5 @@ if __name__ == '__main__':
 
   create_table(conn)
   conn.commit()
-  start_server(conn, "0.0.0.0", 5000)
+  start_server(conn)
 
