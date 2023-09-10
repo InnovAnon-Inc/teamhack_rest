@@ -1,11 +1,6 @@
-from flask          import Flask, jsonify, request
-#from flask_restful  import Resource, Api
-#from importlib      import import_module
-#from importlib.util import find_spec, LazyLoader, module_from_spec, spec_from_file_location
-#from inspect        import getmembers, getmodulename, isclass
-#from sys            import modules, path
-#from tempfile       import NamedTemporaryFile
-from teamhack_db.sql import insert, get_name, get_record_type
+from flask            import Flask, jsonify, request
+from teamhack_db.sql  import insert
+from teamhack_db.util import get_name, get_record_type
 
 def create_app(conn):
   app = Flask(__name__)
