@@ -37,6 +37,7 @@ def create_app(conn):
     if 'inet' not in data: return '', 404
     addr = data['inet']
     insert(conn, host, rt, addr)
+    conn.commit()
     return '', 204
 
   @app.route('/retrieve', methods=['POST'])
