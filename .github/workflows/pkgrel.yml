@@ -143,11 +143,16 @@ jobs:
       env:
         TEAMHACK_VERSION: ${{ steps.tag_version.outputs.new_tag }}
 
-    - name: Deploy Docker Image
+    - name: Tag Docker Image
       run: |
-        docker push     "innovanon/teamhack_rest:$TEAMHACK_VERSION"
+        docker tag      "innovanon/teamhack_rest:$TEAMHACK_VERSION" \
+                         innovanon/teamhack_rest:latest
       env:
         TEAMHACK_VERSION: ${{ steps.tag_version.outputs.new_tag }}
+
+    - name: Deploy Docker Image
+      run: |
+        docker push      innovanon/teamhack_rest
 
     # Service containers to run with `container-job`
     services:
