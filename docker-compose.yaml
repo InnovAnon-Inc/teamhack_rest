@@ -20,5 +20,7 @@ services:
         condition: service_healthy
       syslog:
         condition: service_started
-      #  condition:   service_healthy
-
+        #condition:   service_healthy
+      teamhack_dns:
+        condition: service_healthy
+        
