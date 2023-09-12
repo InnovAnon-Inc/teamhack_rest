@@ -1,8 +1,8 @@
 version: '3.8'
 services:
   teamhack_rest:
-    image: innovanon/teamhack-rest
-    container_name:  teamhack-rest
+    image: innovanon/teamhack_rest
+    container_name:  teamhack_rest
     ports:
       - "0.0.0.0:5000:5000/tcp"
     volumes:
@@ -10,11 +10,11 @@ services:
     restart:         always
     #network_mode:    service:vpn-s1
     healthcheck:
-    #  test: ["CMD-SHELL", "exec 3<> /dev/tcp/0.0.0.0/3633 ; cat <&3 ; exec 3<&-"]
-      test: ["CMD-SHELL", "python -c 'from requests import post; post("0.0.0.0", data={'host':'hackthebox.com'})"'"]
+      test: ["CMD-SHELL", "python -c 'from requests import post; post(\"0.0.0.0\", data={\"host\":\"hackthebox.com\"})\"'"]
       interval:      1m
       timeout:       3s
       retries:       10
+    #  test: ["CMD-SHELL", "exec 3<> /dev/tcp/0.0.0.0/3633 ; cat <&3 ; exec 3<&-"]
     depends_on:
       postgres:
         condition: service_healthy
