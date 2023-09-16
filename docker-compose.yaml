@@ -7,6 +7,7 @@ services:
       - "0.0.0.0:5000:5000/tcp"
     volumes:
       - syslog-client:/etc/rsyslog.d:ro
+      - teamhack:/var/teamhack/etc:ro
     restart:         always
     #network_mode:    service:vpn-s1
     healthcheck:

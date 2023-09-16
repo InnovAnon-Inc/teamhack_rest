@@ -9,6 +9,9 @@ FROM python:latest
 #  /tmp/dist/
 RUN pip install teamhack_rest
 
+WORKDIR  /var/teamhack
+VOLUME ["/var/teamhack/etc"]
+
 ENTRYPOINT [         \
   "/usr/bin/python", \
   "-m",              \
