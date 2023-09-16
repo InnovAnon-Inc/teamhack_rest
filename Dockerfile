@@ -13,10 +13,11 @@ WORKDIR  /var/teamhack
 VOLUME ["/var/teamhack/etc"]
 
 ENTRYPOINT [         \
-  "/usr/bin/python", \
+  "/usr/bin/env",    \
+  "python",          \
   "-m",              \
   "teamhack_rest"    \
 ]
 
-EXPOSE 5000/tcp
+EXPOSE 5001/tcp
 

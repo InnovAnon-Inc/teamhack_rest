@@ -4,7 +4,7 @@ services:
     image: innovanon/teamhack_rest
     container_name:  teamhack_rest
     ports:
-      - "0.0.0.0:5000:5000/tcp"
+      - "0.0.0.0:5001:5001/tcp"
     volumes:
       - syslog-client:/etc/rsyslog.d:ro
       - teamhack:/var/teamhack/etc:ro
