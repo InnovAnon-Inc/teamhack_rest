@@ -12,8 +12,8 @@ RUN pip install teamhack_rest
 ENTRYPOINT [         \
   "/usr/bin/python", \
   "-m",              \
-  "teamhack_rest",   \
+  "teamhack_rest"    \
 ]
 
-EXPOSE 5000/udp
+EXPOSE 5000/tcp
 
