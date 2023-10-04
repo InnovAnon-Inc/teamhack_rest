@@ -11,3 +11,8 @@ user=rest
 password=P@ssw0rd
 ```
 
+# Innovations Anonymous
+Free Code for a Free World!
+==========
+![Corporate Logo](https://innovanon-inc.github.io/assets/images/logo.gif)
+

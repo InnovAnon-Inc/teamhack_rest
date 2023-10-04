@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# Remote Code Execution Daemon
+
 from flask          import Flask, jsonify, request
 from flask_restful  import Resource, Api
 from importlib      import import_module

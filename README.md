@@ -22,3 +22,9 @@ socket
 python3 dns_server.py
 
 ```
+
+# Innovations Anonymous
+Free Code for a Free World!
+==========
+![Corporate Logo](https://innovanon-inc.github.io/assets/images/logo.gif)
+
