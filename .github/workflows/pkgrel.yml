@@ -1,4 +1,4 @@
-name: Hack the Box Team Support Services
+name: REST API for DB used by PG-backed DNS-Server
 permissions:
   contents: write
 

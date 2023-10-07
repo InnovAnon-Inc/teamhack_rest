@@ -1,4 +1,6 @@
-# REST API for DB used by PG-backed DNS-Server
+# teamhack_rest [![teamhack_rest](https://github.com/InnovAnon-Inc/teamhack_rest/actions/workflows/pkgrel.yml/badge.svg)](https://github.com/InnovAnon-Inc/teamhack_rest/actions/workflows/pkgrel.yml)
+REST API for DB used by PG-backed DNS-Server
+==========
 simple dns server using python
 ![example workflow](https://github.com/InnovAnon-Inc/teamhack_rest/actions/workflows/pkgrel.yml/badge.svg)
 
